@@ -34,15 +34,17 @@ public class TrabalhoKarize2 {
                     System.out.println("\nNao ha funcionarios cadastrados");
                     }else{
                         for(int id = 0; id < Fcadastrados; id++){
-                            System.out.println("=============================================================================================");
-                            System.out.println("\nFUNCIONARIO "+nome.get(id).toUpperCase());
-                            System.out.println("CPF: "+CPF.get(id));
-                            System.out.println("Horario Inicio de expediente: "+entrada.get(id));
-                            System.out.println("Horario Fim de expediente: "+saida.get(id));
-                            System.out.println("Em falta: "+horasfaltando.get(id)+" minutos");
-                            System.out.println("Horas extras: "+extras.get(id));
-                            System.out.println("\nUltima entrada: "+entradaREAL.get(id));
-                            System.out.println("Ultima saida: "+saidaREAL.get(id)+"\n");
+
+                            funcionarios(id, nome, entrada, saida, entradaREAL, saidaREAL, limite, CPF, horasfaltando, extras);
+                            // System.out.println("=============================================================================================");
+                            // System.out.println("\nFUNCIONARIO "+nome.get(id).toUpperCase());
+                            // System.out.println("CPF: "+CPF.get(id));
+                            // System.out.println("Horario Inicio de expediente: "+entrada.get(id));
+                            // System.out.println("Horario Fim de expediente: "+saida.get(id));
+                            // System.out.println("Em falta: "+horasfaltando.get(id)+" minutos");
+                            // System.out.println("Horas extras: "+extras.get(id));
+                            // System.out.println("\nUltima entrada: "+entradaREAL.get(id));
+                            // System.out.println("Ultima saida: "+saidaREAL.get(id)+"\n");
 
                         }
                     }
@@ -66,32 +68,34 @@ public class TrabalhoKarize2 {
 
                                             extras.set(id,false);
 
-                                            if(horasfaltando.get(id) != 0){
-                                                int entradaPrevistaMin = (entrada.get(id) / 100) * 60 + (entrada.get(id) % 100);
-                                                int saidaPrevistaMin = (saida.get(id) / 100) * 60 + (saida.get(id) % 100);
-                                                int entradaRealMin = (entradaREAL.get(id) / 100) * 60 + (entradaREAL.get(id) % 100);
-                                                int saidaRealMin = (saidaREAL.get(id) / 100) * 60 + (saidaREAL.get(id) % 100);
+                                        atualizar(id, entrada, saida, entradaREAL, saidaREAL, limite, horasfaltando, extras);
 
-                                                int tempoPrevisto = saidaPrevistaMin - entradaPrevistaMin;
-                                                int tempoTrabalhado = saidaRealMin - entradaRealMin;
-                                                int limiteExtra = limite.get(id);
+                                            // if(horasfaltando.get(id) != 0){
+                                            //     int entradaPrevistaMin = (entrada.get(id) / 100) * 60 + (entrada.get(id) % 100);
+                                            //     int saidaPrevistaMin = (saida.get(id) / 100) * 60 + (saida.get(id) % 100);
+                                            //     int entradaRealMin = (entradaREAL.get(id) / 100) * 60 + (entradaREAL.get(id) % 100);
+                                            //     int saidaRealMin = (saidaREAL.get(id) / 100) * 60 + (saidaREAL.get(id) % 100);
 
-                                            if (tempoTrabalhado < tempoPrevisto) {
-                                                    horasfaltando.set(id, tempoPrevisto - tempoTrabalhado);
-                                                    extras.set(id,false);
-                                            } else if (tempoTrabalhado == tempoPrevisto) {
-                                                    horasfaltando.set(id, 0);
-                                                    extras.set(id,false);
-                                            } else if (tempoTrabalhado <= (tempoPrevisto + limiteExtra)) {
-                                                    horasfaltando.set(id, 0);
-                                                    extras.set(id,true);
-                                            } else {
-                                                    horasfaltando.set(id, 0);
-                                                    extras.set(id,false);
-                                            }
-                                        }
-                                    } 
-                                }
+                                            //     int tempoPrevisto = saidaPrevistaMin - entradaPrevistaMin;
+                                            //     int tempoTrabalhado = saidaRealMin - entradaRealMin;
+                                            //     int limiteExtra = limite.get(id);
+
+                                            // if (tempoTrabalhado < tempoPrevisto) {
+                                            //         horasfaltando.set(id, tempoPrevisto - tempoTrabalhado);
+                                            //         extras.set(id,false);
+                                            // } else if (tempoTrabalhado == tempoPrevisto) {
+                                            //         horasfaltando.set(id, 0);
+                                            //         extras.set(id,false);
+                                            // } else if (tempoTrabalhado <= (tempoPrevisto + limiteExtra)) {
+                                            //         horasfaltando.set(id, 0);
+                                            //         extras.set(id,true);
+                                            // } else {
+                                            //         horasfaltando.set(id, 0);
+                                            //         extras.set(id,false);
+                                            // }
+                                    }
+                                } 
+                            
                             }else if(escolhahr == 'E'){
                                 System.out.println("Insira o CPF que deseja alterar.");
                                 int cpfreg = teclado.nextInt(); 
@@ -104,30 +108,31 @@ public class TrabalhoKarize2 {
                                         entradaREAL.set(id, horarionovo);
                                         
                                         if(horasfaltando.get(id) != 0){
-                                            
 
-                                                int entradaPrevistaMin = (entrada.get(id) / 100) * 60 + (entrada.get(id) % 100);
-                                                int saidaPrevistaMin = (saida.get(id) / 100) * 60 + (saida.get(id) % 100);
-                                                int entradaRealMin = (entradaREAL.get(id) / 100) * 60 + (entradaREAL.get(id) % 100);
-                                                int saidaRealMin = (saidaREAL.get(id) / 100) * 60 + (saidaREAL.get(id) % 100);
+                                            atualizar(id, entrada, saida, entradaREAL, saidaREAL, limite, horasfaltando, extras);
 
-                                                int tempoPrevisto = saidaPrevistaMin - entradaPrevistaMin;
-                                                int tempoTrabalhado = saidaRealMin - entradaRealMin;
-                                                int limiteExtra = limite.get(id);
+                                                // int entradaPrevistaMin = (entrada.get(id) / 100) * 60 + (entrada.get(id) % 100);
+                                                // int saidaPrevistaMin = (saida.get(id) / 100) * 60 + (saida.get(id) % 100);
+                                                // int entradaRealMin = (entradaREAL.get(id) / 100) * 60 + (entradaREAL.get(id) % 100);
+                                                // int saidaRealMin = (saidaREAL.get(id) / 100) * 60 + (saidaREAL.get(id) % 100);
 
-                                                if (tempoTrabalhado < tempoPrevisto) {
-                                                    horasfaltando.set(id, tempoPrevisto - tempoTrabalhado);
-                                                    extras.set(id,false);
-                                                } else if (tempoTrabalhado == tempoPrevisto) {
-                                                    horasfaltando.set(id, 0);
-                                                    extras.set(id,false);
-                                                } else if (tempoTrabalhado <= (tempoPrevisto + limiteExtra)) {
-                                                    horasfaltando.set(id, 0);
-                                                    extras.set(id,true);
-                                                } else {
-                                                    horasfaltando.set(id, 0);
-                                                    extras.set(id,false);
-                                                }
+                                                // int tempoPrevisto = saidaPrevistaMin - entradaPrevistaMin;
+                                                // int tempoTrabalhado = saidaRealMin - entradaRealMin;
+                                                // int limiteExtra = limite.get(id);
+
+                                                // if (tempoTrabalhado < tempoPrevisto) {
+                                                //     horasfaltando.set(id, tempoPrevisto - tempoTrabalhado);
+                                                //     extras.set(id,false);
+                                                // } else if (tempoTrabalhado == tempoPrevisto) {
+                                                //     horasfaltando.set(id, 0);
+                                                //     extras.set(id,false);
+                                                // } else if (tempoTrabalhado <= (tempoPrevisto + limiteExtra)) {
+                                                //     horasfaltando.set(id, 0);
+                                                //     extras.set(id,true);
+                                                // } else {
+                                                //     horasfaltando.set(id, 0);
+                                                //     extras.set(id,false);
+                                                // }
                                         }
 
                                     } 
@@ -157,40 +162,13 @@ public class TrabalhoKarize2 {
 
 /**=============================================================================================================================================================================================*/
 
-                            System.out.println("Insira o horário de entrada do expediente (ex: 800 = 08:00): ");
-                            int entradaH = teclado.nextInt();
-                            
-                            horas = entradaH / 100;
-                            minutos = entradaH % 100;
-
-                            while ((horas < 0 || horas >= 24) || (minutos < 0 || minutos >= 60)) {
-                                System.out.println("Horário inválido. Tente novamente.");
-                                System.out.println("Insira o horário de entrada do expediente (ex: 800 = 08:00): ");
-                                entradaH = teclado.nextInt();
-
-                                horas = entradaH / 100;
-                                minutos = entradaH % 100;
-
-                            }
+                            int entradaH = lerHorarioValido(teclado, "Insira o horário de entrada do expediente (ex: 800 = 08:00): ");
 
                             entrada.add(entradaH);
 
 /**=============================================================================================================================================================================================*/
 
-                            System.out.println("Insira o horário de saída do expediente (ex: 1700 = 17:00): ");
-                            int saidaH = teclado.nextInt();
-                            
-                            horas = saidaH / 100;
-                            minutos = saidaH % 100;
-
-                            while ((horas < 0 || horas >= 24) || (minutos < 0 || minutos >= 60)) {
-                                System.out.println("Horário inválido. Tente novamente.");
-                                System.out.println("Insira o horário de entrada do expediente (ex: 800 = 08:00): ");
-                                saidaH = teclado.nextInt();
-
-                                horas = saidaH / 100;
-                                minutos = saidaH % 100;
-                            }
+                            int saidaH = lerHorarioValido(teclado, "Insira o horário de saída do expediente (ex: 1700 = 17:00): ");
 
                             saida.add(saidaH);
 
@@ -218,37 +196,11 @@ public class TrabalhoKarize2 {
                     if (CPF.get(id) == CPFdigitado){
                         encontrado = true;
 
-                        System.out.println("\nInsira seu horário de entrada: ");
-                        int entradaR = teclado.nextInt();
-                    
-                        horas = entradaR / 100;
-                        minutos = entradaR % 100;
-
-                        while ((horas < 0 || horas >= 24) || (minutos < 0 || minutos >= 60)) {
-                            System.out.println("Horário inválido. Tente novamente.");
-                            System.out.println("Insira o horário de entrada do expediente (ex: 800 = 08:00): ");
-                            entradaR = teclado.nextInt();
-
-                            horas = entradaR / 100;
-                            minutos = entradaR % 100;
-                        }
+                        int entradaR = lerHorarioValido(teclado, "Insira seu horário de entrada: ");
 
                         entradaREAL.set(id, entradaR);
 
-                        System.out.println("Insira seu horário de saída: ");
-                        int saidaR = teclado.nextInt();
-                    
-                        horas = saidaR / 100;
-                        minutos = saidaR % 100;
-
-                        while ((horas < 0 || horas >= 24) || (minutos < 0 || minutos >= 60)) {
-                            System.out.println("Horário inválido. Tente novamente.");
-                            System.out.println("Insira o horário de saída do expediente (ex: 800 = 08:00): ");
-                            saidaR = teclado.nextInt();
-
-                            horas = saidaR / 100;
-                            minutos = saidaR % 100;
-                        }
+                        int saidaR = lerHorarioValido(teclado, "Insira seu horário de saída: ");
 
                         saidaREAL.set(id, saidaR);
                         
@@ -261,13 +213,15 @@ public class TrabalhoKarize2 {
                         int tempoTrabalhado = saidaRealMin - entradaRealMin;
                         int limiteExtra = limite.get(id);
 
-                        System.out.println("=============================================================================================");
-                        System.out.println("\nFUNCIONARIO " + nome.get(id) .toUpperCase());
-                        System.out.println("CPF: " + CPF.get(id) );
-                        System.out.println("Início do expediente: " + entrada.get(id) );
-                        System.out.println("Fim do expediente: " + saida.get(id) );
-                        System.out.println("Chegada: " + entradaREAL.get(id) );
-                        System.out.println("Saída: " + saidaREAL.get(id) );
+                        // System.out.println("=============================================================================================");
+                        // System.out.println("\nFUNCIONARIO " + nome.get(id) .toUpperCase());
+                        // System.out.println("CPF: " + CPF.get(id) );
+                        // System.out.println("Início do expediente: " + entrada.get(id) );
+                        // System.out.println("Fim do expediente: " + saida.get(id) );
+                        // System.out.println("Chegada: " + entradaREAL.get(id) );
+                        // System.out.println("Saída: " + saidaREAL.get(id) );
+
+                        funcionarios(id, nome, entrada, saida, entradaREAL, saidaREAL, limite, CPF, horasfaltando, extras);
 
                         if (tempoTrabalhado < tempoPrevisto) {
                             horasfaltando.set(id, tempoPrevisto - tempoTrabalhado);
@@ -290,7 +244,7 @@ public class TrabalhoKarize2 {
                     }
                 }
 
-                if (encontrado == false){
+                if (!encontrado){
                     System.out.println("Funcionário não encontrado.");
                 }
             }else if (opcao == 'S') {
@@ -303,4 +257,79 @@ public class TrabalhoKarize2 {
 
         teclado.close();
     }
+
+public static int lerHorarioValido(Scanner teclado, String mensagem) {
+    int horas, minutos, horario;
+
+    while (true) {
+        System.out.println(mensagem);
+        horario = teclado.nextInt();
+        horas = horario / 100;
+        minutos = horario % 100;
+
+        if (horas >= 0 && horas < 24 && minutos >= 0 && minutos < 60) {
+            return horario;
+        } else {
+            System.out.println("Horário inválido. Tente novamente.");
+        }
+    }
+}
+
+public static void atualizar(int id,
+        ArrayList<Integer> entrada,
+        ArrayList<Integer> saida,
+        ArrayList<Integer> entradaREAL,
+        ArrayList<Integer> saidaREAL,
+        ArrayList<Integer> limite,
+        ArrayList<Integer> horasfaltando,
+        ArrayList<Boolean> extras) {
+
+    int entradaPrevistaMin = (entrada.get(id) / 100) * 60 + (entrada.get(id) % 100);
+    int saidaPrevistaMin = (saida.get(id) / 100) * 60 + (saida.get(id) % 100);
+    int entradaRealMin = (entradaREAL.get(id) / 100) * 60 + (entradaREAL.get(id) % 100);
+    int saidaRealMin = (saidaREAL.get(id) / 100) * 60 + (saidaREAL.get(id) % 100);
+
+    int tempoPrevisto = saidaPrevistaMin - entradaPrevistaMin;
+    int tempoTrabalhado = saidaRealMin - entradaRealMin;
+    int limiteExtra = limite.get(id);
+
+    if (tempoTrabalhado < tempoPrevisto) {
+        horasfaltando.set(id, tempoPrevisto - tempoTrabalhado);
+        extras.set(id, false);
+    } else if (tempoTrabalhado == tempoPrevisto) {
+        horasfaltando.set(id, 0);
+        extras.set(id, false);
+    } else if (tempoTrabalhado <= (tempoPrevisto + limiteExtra)) {
+        horasfaltando.set(id, 0);
+        extras.set(id, true);
+    } else {
+        horasfaltando.set(id, 0);
+        extras.set(id, false);
+    }
+}
+
+
+public static void funcionarios(int id,        
+        ArrayList<String> nome,
+        ArrayList<Integer> entrada,
+        ArrayList<Integer> saida,
+        ArrayList<Integer> entradaREAL,
+        ArrayList<Integer> saidaREAL,
+        ArrayList<Integer> limite,
+        ArrayList<Integer> CPF,
+        ArrayList<Integer> horasfaltando,
+        ArrayList<Boolean> extras){
+
+        atualizar(id, entrada, saida, entradaREAL, saidaREAL, limite, horasfaltando, extras);
+                            System.out.println("=============================================================================================");
+                            System.out.println("\nFUNCIONARIO "+nome.get(id).toUpperCase());
+                            System.out.println("CPF: "+CPF.get(id));
+                            System.out.println("Horario Inicio de expediente: "+entrada.get(id));
+                            System.out.println("Horario Fim de expediente: "+saida.get(id));
+                            System.out.println("Em falta: "+horasfaltando.get(id)+" minutos");
+                            System.out.println("Horas extras: "+extras.get(id));
+                            System.out.println("\nUltima entrada: "+entradaREAL.get(id));
+                            System.out.println("Ultima saida: "+saidaREAL.get(id)+"\n");
+}
+
 }
